@@ -193,7 +193,7 @@
         }
         /* Estilos para seção de Aula, Tema e Habilidade */
         .detalhes-questao {
-            background-color: #006400; /* Verde Escuro */
+            background-color: #d3d3d3; /* Cinza Claro */
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 15px;
@@ -201,6 +201,7 @@
         .detalhes-questao p {
             margin: 5px 0;
             font-weight: bold;
+            color: #333333; /* Cor Escura */
         }
     </style>
 </head>
@@ -445,7 +446,7 @@
             ];
 
             // URL do seu Web App do Google Apps Script
-            const WEB_APP_URL = 'https://script.google.com/macros/s/SEU_SCRIPT_ID/exec'; // Substitua 'SEU_SCRIPT_ID' pela URL correta
+            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbz3T1TGIK2VH7Z-HW2Nff9P2h8x9dPI8W6JLCsNeRFrC3zLRdlXZ1Omkj_yQv437lEZ/exec'; // Substitua 'SEU_SCRIPT_ID' pela URL correta
 
             // Objeto para armazenar os timers
             const timers = {};
@@ -527,8 +528,9 @@
                         const total = result.total;
                         const feedback = result.feedback;
 
-                        // Construir feedback detalhado
-                        let feedbackHTML = `<p><strong>Pontuação Total:</strong> ${pontuacao} / ${total}</p><hr>`;
+                        // Construir feedback detalhado com mensagem de sucesso
+                        let feedbackHTML = `<p><strong>Atividade enviada com sucesso!</strong></p>`;
+                        feedbackHTML += `<p><strong>Pontuação Total:</strong> ${pontuacao} / ${total}</p><hr>`;
                         feedbackHTML += `<h4>Feedback Detalhado:</h4>`;
 
                         for (let i = 1; i <= totalQuestoes; i++) {
@@ -555,11 +557,25 @@
                         feedbackContainer.scrollIntoView({ behavior: 'smooth' });
 
                     } else {
-                        alert("Ocorreu um erro ao enviar as respostas: " + result.error);
+                        // Remover a mensagem de erro conforme solicitado
+                        // Se desejar manter alguma forma de notificação, você pode implementar outra abordagem
+                        console.error("Erro ao enviar as respostas:", result.error);
+                        // Por exemplo, mostrar uma mensagem no feedback container
+                        const feedbackContainer = document.getElementById('feedback-container');
+                        const feedbackContent = document.getElementById('feedback-content');
+                        feedbackContent.innerHTML = `<p style="color: red;"><strong>Erro ao enviar as respostas. Por favor, tente novamente.</strong></p>`;
+                        feedbackContainer.style.display = 'block';
+                        feedbackContainer.scrollIntoView({ behavior: 'smooth' });
                     }
                 } catch (error) {
                     console.error('Erro ao enviar respostas:', error);
-                    alert("Ocorreu um erro ao enviar as respostas. Por favor, tente novamente.");
+                    // Remover a mensagem de erro conforme solicitado
+                    // Se desejar manter alguma forma de notificação, você pode implementar outra abordagem
+                    const feedbackContainer = document.getElementById('feedback-container');
+                    const feedbackContent = document.getElementById('feedback-content');
+                    feedbackContent.innerHTML = `<p style="color: red;"><strong>Erro ao enviar as respostas. Por favor, tente novamente.</strong></p>`;
+                    feedbackContainer.style.display = 'block';
+                    feedbackContainer.scrollIntoView({ behavior: 'smooth' });
                 }
             }
 
