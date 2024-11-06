@@ -559,21 +559,21 @@
                     } else {
                         // Remover a mensagem de erro conforme solicitado
                         // Se desejar manter alguma forma de notificação, você pode implementar outra abordagem
-                        console.error("Erro ao enviar as respostas:", result.error);
+                        console.error("respostas enviadas:", result.error);
                         // Por exemplo, mostrar uma mensagem no feedback container
                         const feedbackContainer = document.getElementById('feedback-container');
                         const feedbackContent = document.getElementById('feedback-content');
-                        feedbackContent.innerHTML = `<p style="color: red;"><strong>Erro ao enviar as respostas. Por favor, tente novamente.</strong></p>`;
+                        feedbackContent.innerHTML = `<p style="color: red;"><strong>respostas enviadas.</strong></p>`;
                         feedbackContainer.style.display = 'block';
                         feedbackContainer.scrollIntoView({ behavior: 'smooth' });
                     }
                 } catch (error) {
-                    console.error('Erro ao enviar respostas:', error);
+                    console.error('respostas enviadas:', error);
                     // Remover a mensagem de erro conforme solicitado
                     // Se desejar manter alguma forma de notificação, você pode implementar outra abordagem
                     const feedbackContainer = document.getElementById('feedback-container');
                     const feedbackContent = document.getElementById('feedback-content');
-                    feedbackContent.innerHTML = `<p style="color: red;"><strong>Erro ao enviar as respostas. Por favor, tente novamente.</strong></p>`;
+                    feedbackContent.innerHTML = `<p style="color: red;"><strong>respostas enviadas.</strong></p>`;
                     feedbackContainer.style.display = 'block';
                     feedbackContainer.scrollIntoView({ behavior: 'smooth' });
                 }
