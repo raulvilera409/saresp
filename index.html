@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Atividade Avaliativa - Ciências</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.85);
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 1200px;
+            color: white;
+            position: relative;
+        }
+        /* Cabeçalho da Escola */
+        .header {
+            margin-bottom: 20px;
+        }
+        .header h1 {
+            font-size: 24px;
+            text-align: left;
+            margin: 0;
+        }
+        /* Conteúdo do Formulário */
+        .form-content {
+            margin-top: 20px;
+        }
+        .cabecalho {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .cabecalho div, .serie-dropdown {
+            width: 30%;
+            min-width: 200px;
+            margin-bottom: 10px;
+        }
+        .serie-dropdown {
+            width: 25%;
+            min-width: 150px;
+            margin-bottom: 10px;
+        }
+        /* Estilo para Numeração das Questões */
+        .numero-questao {
+            color: red;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        /* Cronômetro */
+        .relogio {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 50px;
+            height: 30px;
+            background-color: #ffffff;
+            color: #000000;
+            font-size: 14px;
+            text-align: center;
+            line-height: 30px;
+            border-radius: 5px;
+            border: 1px solid #cccccc;
+        }
+        /* Valor da Questão */
+        .valor-questao {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #28a745;
+            color: #ffffff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        /* Questão */
+        .questao {
+            position: relative;
+            margin-bottom: 30px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px 20px 20px 20px;
+            border-radius: 8px;
+        }
+        .questao p {
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        /* Campo de Resposta */
+        .resposta {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #cccccc;
+            resize: vertical;
+            line-height: 1.5;
+            background-color: #ffffff;
+            background-image: repeating-linear-gradient(
+                to bottom,
+                #ffffff 0px,
+                #ffffff 29px,
+                #e0e0e0 29px,
+                #e0e0e0 30px
+            );
+            background-size: 100% 30px;
+            color: darkblue;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        /* Estilização dos Campos de Seleção e Data */
+        input[type="date"], select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: none;
+            font-size: 14px;
+            color: darkblue;
+            font-weight: bold;
+            background-color: white;
+        }
+        /* Botão de Envio */
+        button {
+            display: block;
+            margin: 30px auto;
+            padding: 15px 30px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #28a745;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        /* Estilos para questões de múltipla escolha */
+        .opcoes {
+            margin-top: 10px;
+        }
+        .opcoes label {
+            display: block;
+            margin-bottom: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+        }
+        /* Alterar a cor da alternativa selecionada para azul escura */
+        .opcoes input[type="radio"]:checked + span {
+            color: white;
+            background-color: darkblue;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        /* Adicionar estilo para os spans dentro das labels */
+        .opcoes label span {
+            color: white;
+            transition: color 0.3s, background-color 0.3s;
+        }
+        /* Estilo para as linhas entre questões */
+        .linha-questao {
+            border-top: 2px solid #ffffff;
+            margin: 30px 0;
+        }
+        /* Feedback */
+        .feedback-container {
+            background-color: #ffffff;
+            color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: none; /* Inicialmente escondido */
+        }
+        .feedback-container h3 {
+            margin-top: 0;
+        }
+        .feedback-questao {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .feedback-questao.correct {
+            background-color: darkblue;
+            color: white;
+        }
+        .feedback-questao.incorrect {
+            background-color: red;
+            color: white;
+        }
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .form-container {
+                width: 95%;
+            }
+            .cabecalho {
+                flex-direction: column;
+            }
+            .cabecalho div, .serie-dropdown {
+                width: 100%;
+            }
+            .relogio {
+                top: 10px;
+                left: 10px;
+            }
+            .valor-questao {
+                top: 10px;
+                right: 10px;
+            }
+            .questao {
+                padding: 15px 15px 15px 15px;
+            }
+            .linha-questao {
+                margin: 20px 0;
+            }
+        }
+        /* Estilos para seção de Aula, Tema e Habilidade */
+        .detalhes-questao {
+            background-color: #ADD8E6; /* Azul Claro */
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+        .detalhes-questao p {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container">
+        <!-- Cabeçalho da Escola -->
+        <div class="header">
+            <h1>E.E. WANDA MASCAGNI DE SÁ</h1>
+        </div>
+
+        <!-- Conteúdo do Formulário -->
+        <div class="form-content">
+            <div class="cabecalho">
+                <div>
+                    <p>NOME: 
+                        <select id="nome" name="nome" required>
+                            <option value="" disabled selected>Selecione seu nome</option>
+                            <option>ÁGATHA NIKOLLE DA SILVA RAMOS</option> 
+                            <option>ALEXANDRE DE FREITAS TAVARES</option> 
+                            <option>AMANDA BEATRIZ LEAL MOURAD</option> 
+                            <option>ANA BEATRIZ FELICIANA DE SOUZA</option>
+                            <option>ANA PAULA MARIA DE MENDONÇA</option>
+                            <option>ARTHUR DOS SANTOS</option>
+                            <option>BEATRIZ UCHOA DOS SANTOS</option>
+                            <option>CARLOS EDUARDO BELMIRO DOS SANTOS</option>
+                            <option>DANIEL DIAS SILVEIRA</option>
+                            <option>ERICK HENRIQUE RIBEIRO GONÇALVES</option>
+                            <option>FILIPE RODRIGUES SANTOS</option>
+                            <option>GABRIEL ALMEIDA MOSCARDINI</option>
+                            <option>GABRIELLA MARQUES QUINTELA DE PAULA</option>
+                            <option>GEOVANNA HEIDE MARTINS DOS SANTOS</option>
+                            <option>GUILHERME DA SILVA GUIMARÃES</option>
+                            <option>IAGO ANJOS DE JESUS</option>
+                            <option>ISAAC BRANDÃO GONÇALVES</option>
+                            <option>ISADORA DE SOUZA SILVA</option>
+                            <option>ISAÍAS DE OLIVEIRA BEZERRA</option>
+                            <option>JÚLIA SENA DIAS</option>
+                            <option>JULIANA SANTOS LIMA</option>
+                            <option>JULIO CESAR MENEZES GOMES</option>
+                            <option>KETHELYN LUIZI LEOCADIO DOS SANTOS</option>
+                            <option>LUAN FRANCISCO SANTOS SILVA</option>
+                            <option>MANUELA VITÓRIA LIMA DOS SANTOS</option>
+                            <option>MIGUEL ALVES OLIVEIRA</option>
+                            <option>ORIANA JOSE TUAREZ RENGEL</option>
+                            <option>PALLOMA EDUARDA GONÇALVES DOS SANTOS</option>
+                            <option>PEDRO HENRIQUE BUENO</option>
+                            <option>RAFAELLA VITÓRIA EXPEDITA DE ANDRADE MARQUES</option>
+                            <option>RAYLAN DE JESUS BARBOSA</option>
+                            <option>REBECA DOS SANTOS SOUSA</option>
+                            <option>RICHARD JOSÉ DOS SANTOS</option>
+                            <option>RYAN HENRIQUE PORFIRIO DA SILVA GUIMARÃES</option>
+                            <option>SARA CRISTINA PASSOS MARTINS</option>
+                            <option>VICTOR MIGUEL DOS SANTOS SILVA</option>
+                            <option>GIOVANA MOTA VAZ DE JESUS</option>
+                            <option>AGATHA JULIA PEDRO SILVA</option>
+                            <option>ALEJANDRO VIEIRA LIMA</option>
+                            <option>ALLAN BEZERRA DE LIMA</option>
+                            <option>ANA CLARA JESUS MISE</option>
+                            <option>ANNA NICOLY BENVINDO DOS SANTOS</option>
+                            <option>ARTHUR DE JESUS NASCIMENTO</option>
+                            <option>ARTHUR MARYANO MENDES</option>
+                            <option>CARLOS EDUARDO OLIVEIRA SABATERRA</option>
+                            <option>DARYO PALMA GREGORIO</option>
+                            <option>DAVI SOBREIRA FERREIRA FUNCHAL</option>
+                            <option>EDUARDA DE SOUSA OLIVEIRA</option>
+                            <option>EDUARDA RODRIGUES DE MOURA</option>
+                            <option>GABRYELL FERREIRA DA SILVA</option>
+                            <option>GIOVANNA MARTINEZ FERREIRA</option>
+                            <option>GRAZIELLE VITÓRIA SILVA FIGUEIREDO</option>
+                            <option>JOÃO PAULO DA SILVA PEREIRA BERNARDES</option>
+                            <option>KARINA DE JESUS SANTANA</option>
+                            <option>KELWIN GABRIEL LIMA DA SILVA</option>
+                            <option>LEONARDO JUNIOR ALBUQUERQUE DA SILVA</option>
+                            <option>MANUELA MARQUES SILVA SOUSA</option>
+                            <option>MARCOS DE OLIVEIRA CARVALHO</option>
+                            <option>MOISES DOS SANTOS BOMFIM</option>
+                            <option>NAHYMÊ VITORIA TAVARES DOS SANTOS</option>
+                            <option>NICOLAS LUAN MENDES</option>
+                            <option>PEDRO HENRIQUE ARRABAL MANZARO</option>
+                            <option>PIETRO RAMON DE PAIVA MAGALHÃES LEITÃO</option>
+                            <option>RAPHAELY PEREIRA DE SOUSA</option>
+                            <option>TATIANA DA SILVA RODRIGUES</option>
+                            <option>VITOR HUGO DOMINGOS SANTOS</option>
+                            <option>WAGNER SILVA MEIRA</option>
+                            <option>YASMIM ANDRADE DOS SANTOS</option>
+                            <option>MIGUEL ANGEL NINA QUISPE</option>
+                            <option>KAIQUE ALEXANDRE DE LIMA</option>
+                            <option>GUILHERME BELTRAO PEREIRA VIEIRA</option>
+                            <option>SOFIA DE FRANCA COSTA</option>
+                            <option>ALEX GUSTAVO DA SILVA VIEIRA</option>
+                            <option>ALEXANDRE SERAFIM JUNIOR</option>
+                            <option>ANA LUIZA DO NASCIMENTO</option>
+                            <option>ANNA JULYA SILVA MELO</option>
+                            <option>ARTHUR EMANUEL ALMEIDA REIS</option>
+                            <option>ARTHUR MARQUES MENEZES</option>
+                            <option>CAROLINE ABADE DOS SANTOS</option>
+                            <option>EDUARDA ANDRADE DA SILVA</option>
+                            <option>ELOISA DE OLIVEIRA CARVALHO</option>
+                            <option>ENZO BAPTISTA MAIA</option>
+                            <option>EVELLYN ANGELINA CAVALCANTE DE OLIVEIRA</option>
+                            <option>GABRIEL ARAUJO DOS SANTOS</option>
+                            <option>GABRIEL VICTOR OLIVEIRA SANTOS</option>
+                            <option>GIOVANNA SOUSA DA SILVA</option>
+                            <option>GUSTAVO FURLAN GUEDES DA SILVA</option>
+                            <option>JHENNYFER DE MORAES LEME</option>
+                            <option>KAUÃ BRYAN MAZARIO BARBEIRO</option>
+                            <option>KAUÃ DUDA SOARES</option>
+                            <option>KAUAN ALAMBERT GOMES DE SOUSA</option>
+                            <option>KEMILLY CARVALHO DA FONSECA BRITO</option>
+                            <option>KLAIVYN WALLAS ARAUJO ESPIRITO SANTO</option>
+                            <option>LORHANNY CAVALCANTE SANTOS</option>
+                            <option>MATHEWS RODRIGUES QUEIROZ</option>
+                            <option>MIGUEL RIBEIRO DOS ANJOS</option>
+                            <option>MIGUEL ROZZO PARREIRA</option>
+                            <option>MONALISA DOS SANTOS BALDUINO</option>
+                            <option>NATHAN SANTANA MONTEMOR</option>
+                            <option>NICOLAS PYETRO CASTRO DE ALMEIDA SOUZA</option>
+                            <option>NICOLLAS JHAMAL DA SILVA ALVES</option>
+                            <option>SARAH SILVA ROGER</option>
+                            <option>SERGIO RICARDO SILVA DE SOUZA</option>
+                            <option>VINICIUS COSTA SILVA</option>
+                            <option>VITÓRIA SILVA VIEIRA</option>
+                            <option>GEOVANNA APARECIDA VIEIRA LIMA</option>
+                            <option>JOSE HENRIQUE LACERDA DE LIMA</option>
+                            <option>KAUA DANTE PEIXOTO ROBERTO</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="serie-dropdown">
+                    <p>SÉRIE: 
+                        <select id="serie" name="serie" required>
+                            <option value="" disabled selected>Selecione a série</option>
+                            <option value="8º Ano A">8º Ano A</option>
+                            <option value="8º Ano B">8º Ano B</option>
+                            <option value="8º Ano C">8º Ano C</option>
+                        </select>
+                    </p>
+                </div>
+                <div class="serie-dropdown">
+                    <p>DATA: <input type="date" id="data" name="data" required></p>
+                </div>
+            </div>
+
+            <!-- Título e Tema Atualizados -->
+            <h2 style="text-align: center;">Atividade de Ciências 4º Bimestre</h2>
+            <p style="text-align: center;">Revisão para o Saresp 2024</p>
+
+            <div id="questoes-container"></div>
+
+            <button onclick="enviarRespostas()">Enviar Respostas</button>
+            
+            <!-- Container para exibir o feedback -->
+            <div id="feedback-container" class="feedback-container">
+                <h3>Feedback da Autocorreção</h3>
+                <div id="feedback-content"></div>
+            </div>
+        </div>
+
+        <!-- Bloco de Script Colocado Dentro do Body -->
+        <script>
+            const questoes = [
+                // Questões 1 a 8: 'aberta'
+                {
+                    tipo: 'aberta',
+                    numeroAula: 'Aula 05 - Fontes renováveis de energia',
+                    tema: 'Fontes Renováveis de Energia',
+                    habilidade: 'Identificar as diferentes fontes renováveis de energia e compreender sua importância para o desenvolvimento sustentável.',
+                    texto: `Uma comunidade ribeirinha distante dos grandes centros enfrenta dificuldades de acesso à energia elétrica, o que afeta a qualidade de vida dos moradores, especialmente nas noites. Para solucionar o problema, o governo considera investir em uma fonte de energia renovável que seja sustentável e adequada ao local. Levando em conta a localização e os recursos naturais disponíveis, qual seria a fonte de energia mais indicada para essa comunidade? Explique as vantagens dessa escolha.`
+                },
+                {
+                    tipo: 'aberta',
+                    numeroAula: 'Aula 16 - Respeito às diversidades',
+                    tema: 'Respeito às Diversidades',
+                    habilidade: 'Compreender o preconceito e a discriminação como uma construção social e argumentar sobre o respeito à diversidade de manifestações da identidade humana.',
+                    texto: `Em uma atividade de grupo, um estudante compartilhou que se sente desconfortável ao usar pronomes diferentes dos que aprendeu em casa. Como a diversidade de identidades de gênero é parte de uma sociedade plural e qual a importância de respeitar essas identidades no ambiente escolar para promover um convívio saudável e inclusivo?`
+                },
+                {
+                    tipo: 'aberta',
+                    numeroAula: 'Aula 08 - Métodos contraceptivos hormonais',
+                    tema: 'Métodos Contraceptivos Hormonais',
+                    habilidade: 'Identificar e comparar os métodos contraceptivos hormonais, considerando sua eficácia e impacto na prevenção de IST e gravidez.',
+                    texto: `Em uma campanha de conscientização sobre saúde sexual, um grupo discutiu a importância de usar preservativos, mesmo quando se faz uso de métodos contraceptivos hormonais. Explique por que os métodos hormonais, como a pílula, são eficazes para evitar a gravidez, mas insuficientes para evitar IST, e discuta a importância de combinar métodos para garantir a saúde sexual.`
+                },
+                {
+                    tipo: 'aberta',
+                    numeroAula: 'Aula 03 - Principais IST – Sífilis',
+                    tema: 'IST – Sífilis',
+                    habilidade: 'Reconhecer sintomas, modos de transmissão e tratamento para sífilis.',
+                    texto: `Pedro começou um relacionamento e decidiu fazer exames para detectar IST, incluindo o teste de sífilis, mesmo sem apresentar sintomas. Explique por que é importante realizar exames de IST regularmente, como a sífilis pode ser assintomática e quais são as implicações de uma infecção não tratada.`
+                },
+                {
+                    tipo: 'aberta',
+                    numeroAula: 'Aula 02 - Tipos de energia: energia térmica',
+                    tema: 'Energia Térmica',
+                    habilidade: 'Reconhecer as características da energia térmica e os processos de transferência de calor.',
+                    texto: `Em uma campanha de economia de energia, uma empresa sugere que desligar aparelhos eletrônicos em stand-by pode reduzir o consumo elétrico. Porém, alguns funcionários acreditam que essa prática não faz diferença. Explique, com base no conceito de energia térmica, como o calor gerado por aparelhos em stand-by pode resultar em desperdício de energia e impacto ambiental, e por que a economia gerada por pequenos atos pode ser significativa em grande escala.`
+                },
+                {
+                    tipo: 'aberta',
+                    numeroAula: 'Aula 05 - Fontes renováveis de energia',
+                    tema: 'Sustentabilidade e Energia',
+                    habilidade: 'Identificar as diferentes fontes renováveis de energia e compreender sua importância para o desenvolvimento sustentável.',
+                    texto: `Uma metrópole com altos índices de poluição atmosférica decidiu adotar políticas de incentivo à energia solar para reduzir as emissões de CO₂. Explique de que forma a energia solar pode ajudar a reduzir a poluição urbana e discuta os benefícios a longo prazo para a saúde da população e o meio ambiente.`
+                },
+                {
+                    tipo: 'aberta',
+                    numeroAula: 'Aula 17 - Regulação e controle do organismo humano: sistema nervoso',
+                    tema: 'Regulação e Controle do Organismo',
+                    habilidade: 'Compreender o funcionamento do sistema nervoso e as interações com o sistema endócrino.',
+                    texto: `Após fazer uma apresentação para a turma, João percebe que seu coração está acelerado e que está suando, apesar de estar apenas sentado. Explique como o sistema nervoso autônomo age para produzir essas respostas físicas e qual a função desse mecanismo no corpo humano.`
+                },
+                {
+                    tipo: 'aberta',
+                    numeroAula: 'Aula 12 - Reprodução assexuada em animais',
+                    tema: 'Reprodução Assexuada em Animais',
+                    habilidade: 'Reconhecer diferentes tipos de reprodução assexuada em animais.',
+                    texto: `Em uma aula de biologia, a professora explicou que as planárias conseguem se regenerar quando cortadas. Alguns alunos ficaram curiosos sobre como isso é possível e se há vantagens nesse processo para as planárias. Explique o processo de regeneração nas planárias e quais são as vantagens dessa forma de reprodução em certos ambientes.`
+                },
+                // Questões 9 e 10: 'multipla-escolha'
+                {
+                    tipo: 'multipla-escolha',
+                    numeroAula: 'Aula 05 - Fontes renováveis de energia',
+                    tema: 'Fontes Renováveis de Energia',
+                    habilidade: 'Identificar as diferentes fontes renováveis de energia e compreender sua importância para o desenvolvimento sustentável.',
+                    texto: `Embalagens inteligentes como solução para conservação eficiente:
+As embalagens inteligentes são uma inovação que monitora a frescura dos alimentos, indicando a qualidade e a validade do produto.
+Questão: Quais benefícios essas embalagens proporcionam à indústria e aos consumidores?`,
+                    opcoes: [
+                        { letra: 'a', texto: 'Redução dos custos de produção e eliminação da necessidade de refrigeração' },
+                        { letra: 'b', texto: 'Melhoria na segurança alimentar e redução do desperdício de alimentos' },
+                        { letra: 'c', texto: 'Aumento da vida útil dos alimentos, mas com maior impacto ambiental' },
+                        { letra: 'd', texto: 'Redução do consumo de aditivos alimentares, embora com alto custo para o consumidor' }
+                    ],
+                    respostaCorreta: 'b'
+                },
+                {
+                    tipo: 'multipla-escolha',
+                    numeroAula: 'Aula 08 - Métodos contraceptivos hormonais',
+                    tema: 'Métodos Contraceptivos Hormonais',
+                    habilidade: 'Identificar e comparar os métodos contraceptivos hormonais, considerando sua eficácia e impacto na prevenção de IST e gravidez.',
+                    texto: `Química dos alimentos e alimentos fortificados:
+A química dos alimentos permite a criação de alimentos enriquecidos para combater deficiências nutricionais em populações vulneráveis.
+Questão: Qual é um exemplo prático de alimentos fortificados disponíveis em 2024?`,
+                    opcoes: [
+                        { letra: 'a', texto: 'Água mineral com corantes artificiais' },
+                        { letra: 'b', texto: 'Pães enriquecidos com ferro e ácido fólico' },
+                        { letra: 'c', texto: 'Lanches ultraprocessados com aumento de gorduras saturadas' },
+                        { letra: 'd', texto: 'Alimentos orgânicos sem adição de micronutrientes' }
+                    ],
+                    respostaCorreta: 'b'
+                }
+            ];
+
+            // URL do seu Web App do Google Apps Script
+            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwdnbnormMeEclGZ51U3Ts0pAzVbwW23YT6iLd7PokYXHWqVsp_Rzfab5h6RR7YpDly/exec'; // Substitua 'SEU_SCRIPT_ID' pela URL correta
+
+            // Objeto para armazenar os timers
+            const timers = {};
+
+            // Função para iniciar o cronômetro de uma questão
+            function iniciarCronometro(questaoId) {
+                if (!timers[questaoId]) {
+                    timers[questaoId] = { segundos: 0, intervalo: null };
+                    timers[questaoId].intervalo = setInterval(() => {
+                        timers[questaoId].segundos += 1;
+                        document.getElementById(`relogio-${questaoId}`).innerText = formatarTempo(timers[questaoId].segundos);
+                    }, 1000);
+                }
+            }
+
+            // Função para parar o cronômetro de uma questão
+            function pararCronometro(questaoId) {
+                if (timers[questaoId] && timers[questaoId].intervalo) {
+                    clearInterval(timers[questaoId].intervalo);
+                    timers[questaoId].intervalo = null;
+                }
+            }
+
+            // Função para formatar o tempo em mm:ss
+            function formatarTempo(segundos) {
+                const min = Math.floor(segundos / 60).toString().padStart(2, '0');
+                const sec = (segundos % 60).toString().padStart(2, '0');
+                return `${min}:${sec}`;
+            }
+
+            // Função para enviar as respostas
+            async function enviarRespostas() {
+                const nome = document.getElementById('nome').value;
+                const serie = document.getElementById('serie').value;
+                const data = document.getElementById('data').value;
+
+                if (!nome || !serie || !data) {
+                    alert("Por favor, preencha todos os campos antes de enviar.");
+                    return;
+                }
+
+                let respostas = {};
+                respostas['nome'] = nome;
+                respostas['serie'] = serie;
+                respostas['data'] = data;
+
+                const totalQuestoes = questoes.length; // Número total de questões
+                for (let i = 1; i <= totalQuestoes; i++) {
+                    if (questoes[i - 1].tipo === 'aberta') {
+                        const resposta = document.getElementById(`resposta-${i}`).value;
+                        respostas[`resposta-${i}`] = resposta;
+                        respostas[`tempo-${i}`] = timers[i] ? timers[i].segundos : 0;
+                        pararCronometro(i); // Parar o cronômetro após enviar
+                    } else if (questoes[i - 1].tipo === 'multipla-escolha') {
+                        const respostaSelecionada = document.querySelector(`input[name="resposta-${i}"]:checked`);
+                        respostas[`resposta-${i}`] = respostaSelecionada ? respostaSelecionada.value : '';
+                        respostas[`tempo-${i}`] = timers[i] ? timers[i].segundos : 0;
+                        pararCronometro(i); // Parar o cronômetro após enviar
+                    }
+                }
+
+                try {
+                    const response = await fetch(WEB_APP_URL, { // URL do seu Web App
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: new URLSearchParams(respostas)
+                    });
+
+                    // Verificar se a resposta é válida
+                    const result = await response.json();
+
+                    if (result.result === 'success') {
+                        // Limpar o formulário
+                        document.getElementById('nome').value = "";
+                        document.getElementById('serie').value = "";
+                        document.getElementById('data').value = "";
+                        for (let i = 1; i <= totalQuestoes; i++) {
+                            if (questoes[i - 1].tipo === 'aberta') {
+                                document.getElementById(`resposta-${i}`).value = "";
+                            } else if (questoes[i - 1].tipo === 'multipla-escolha') {
+                                const radios = document.getElementsByName(`resposta-${i}`);
+                                radios.forEach(radio => radio.checked = false);
+                            }
+                            document.getElementById(`relogio-${i}`).innerText = "00:00";
+                        }
+
+                        // Exibir pontuação e feedback
+                        const pontuacao = result.pontuacao;
+                        const total = result.total;
+                        const feedback = result.feedback;
+
+                        // Construir feedback detalhado
+                        let feedbackHTML = `<p><strong>Pontuação Total:</strong> ${pontuacao} / ${total}</p><hr>`;
+                        feedbackHTML += `<h4>Feedback Detalhado:</h4>`;
+
+                        for (let i = 1; i <= totalQuestoes; i++) {
+                            const tipo = questoes[i - 1].tipo;
+                            const status = feedback[i].corretas ? 'Correta' : 'Incorreta';
+                            const detalhes = feedback[i].feedback;
+                            const tempo = feedback[i].tempo;
+                            feedbackHTML += `
+                                <div class="feedback-questao ${feedback[i].corretas ? 'correct' : 'incorrect'}" data-questao="${i}">
+                                    <p><strong>Questão ${i} (${tipo === 'aberta' ? 'Aberta' : 'Múltipla Escolha'}):</strong> ${status}</p>
+                                    <p>${detalhes}</p>
+                                    <p><strong>Tempo gasto:</strong> ${formatarTempo(tempo)}</p>
+                                </div>
+                            `;
+                        }
+
+                        // Exibir o feedback na página
+                        const feedbackContainer = document.getElementById('feedback-container');
+                        const feedbackContent = document.getElementById('feedback-content');
+                        feedbackContent.innerHTML = feedbackHTML;
+                        feedbackContainer.style.display = 'block';
+
+                        // Scroll para o feedback
+                        feedbackContainer.scrollIntoView({ behavior: 'smooth' });
+
+                    } else {
+                        alert("Ocorreu um erro ao enviar as respostas: " + result.error);
+                    }
+                } catch (error) {
+                    console.error('Erro ao enviar respostas:', error);
+                    alert("Ocorreu um erro ao enviar as respostas. Por favor, tente novamente.");
+                }
+            }
+
+            // Inicializa as questões ao carregar a página
+            window.onload = gerarQuestoes;
+
+            function gerarQuestoes() {
+                const container = document.getElementById('questoes-container');
+                questoes.forEach((questao, index) => {
+                    const questaoId = index + 1;
+
+                    const questaoDiv = document.createElement('div');
+                    questaoDiv.classList.add('questao');
+
+                    // Cronômetro
+                    const relogioDiv = document.createElement('div');
+                    relogioDiv.classList.add('relogio');
+                    relogioDiv.id = `relogio-${questaoId}`;
+                    relogioDiv.textContent = "00:00";
+                    questaoDiv.appendChild(relogioDiv);
+
+                    // Valor da Questão
+                    const valorDiv = document.createElement('div');
+                    valorDiv.classList.add('valor-questao');
+                    valorDiv.textContent = "0,3 pts";
+                    questaoDiv.appendChild(valorDiv);
+
+                    // Detalhes da Questão (Aula e Tema, Tema, Habilidade)
+                    const detalhesDiv = document.createElement('div');
+                    detalhesDiv.classList.add('detalhes-questao');
+                    detalhesDiv.innerHTML = `
+                        <p><strong>Aula e Tema:</strong> ${questao.numeroAula}</p>
+                        <p><strong>Tema:</strong> ${questao.tema}</p>
+                        <p><strong>Habilidade:</strong> ${questao.habilidade}</p>
+                    `;
+                    questaoDiv.appendChild(detalhesDiv);
+
+                    // Pergunta com Numeração
+                    const pergunta = document.createElement('p');
+
+                    // Criar elemento para número da questão
+                    const numeroSpan = document.createElement('span');
+                    numeroSpan.classList.add('numero-questao');
+                    numeroSpan.textContent = `${questaoId}. `;
+
+                    // Adicionar número e texto da questão
+                    pergunta.appendChild(numeroSpan);
+                    pergunta.appendChild(document.createTextNode(questao.texto));
+                    questaoDiv.appendChild(pergunta);
+
+                    // Resposta
+                    if (questao.tipo === 'aberta') {
+                        const resposta = document.createElement('textarea');
+                        resposta.id = `resposta-${questaoId}`;
+                        resposta.name = `resposta-${questaoId}`;
+                        resposta.placeholder = "Digite sua resposta aqui...";
+                        resposta.classList.add('resposta');
+                        // Iniciar o cronômetro ao focar na textarea
+                        resposta.addEventListener('focus', () => iniciarCronometro(questaoId));
+                        resposta.addEventListener('blur', () => pararCronometro(questaoId));
+                        questaoDiv.appendChild(resposta);
+                    } else if (questao.tipo === 'multipla-escolha') {
+                        const opcoesDiv = document.createElement('div');
+                        opcoesDiv.classList.add('opcoes');
+
+                        questao.opcoes.forEach(opcao => {
+                            const label = document.createElement('label');
+                            const input = document.createElement('input');
+                            input.type = 'radio';
+                            input.name = `resposta-${questaoId}`;
+                            input.value = opcao.letra;
+                            input.required = true;
+
+                            // Criar um span para o texto da opção
+                            const span = document.createElement('span');
+                            span.textContent = ` ${opcao.letra}) ${opcao.texto}`;
+
+                            label.appendChild(input);
+                            label.appendChild(span);
+                            opcoesDiv.appendChild(label);
+                        });
+
+                        // Iniciar o cronômetro ao selecionar uma opção
+                        opcoesDiv.addEventListener('click', () => iniciarCronometro(questaoId));
+
+                        questaoDiv.appendChild(opcoesDiv);
+                    }
+
+                    // Adicionar linha separadora entre questões, exceto após a última
+                    if (questaoId < questoes.length) {
+                        const linha = document.createElement('hr');
+                        linha.classList.add('linha-questao');
+                        questaoDiv.appendChild(linha);
+                    }
+
+                    container.appendChild(questaoDiv);
+                });
+            }
+        </script>
+
+</body>
+</html>
