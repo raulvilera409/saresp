@@ -445,7 +445,7 @@
             ];
 
             // URL do seu Web App do Google Apps Script
-            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxk3SCEDW-0O9L6z-zIm1ukYW4wUSYmexvobLZUGDFxaf8kUVusxY5fp1jbfw8FZQXo/exec'; // Substitua 'SEU_SCRIPT_ID' pela URL correta
+            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycby3XMqsoYDueVwFr6fC3L5IC5T66Dmd6jYH9e3v7X2q4lVrEL_0HyqJNCVOT2-8yLkM/exec'; // Substitua 'SEU_SCRIPT_ID' pela URL correta
 
             // Objeto para armazenar os timers
             const timers = {};
@@ -527,8 +527,9 @@
                         const total = result.total;
                         const feedback = result.feedback;
 
-                        // Construir feedback detalhado
-                        let feedbackHTML = `<p><strong>Pontuação Total:</strong> ${pontuacao} / ${total}</p><hr>`;
+                        // Construir feedback detalhado com mensagem de sucesso
+                        let feedbackHTML = `<p><strong>Atividade enviada com sucesso!</strong></p>`;
+                        feedbackHTML += `<p><strong>Pontuação Total:</strong> ${pontuacao} / ${total}</p><hr>`;
                         feedbackHTML += `<h4>Feedback Detalhado:</h4>`;
 
                         for (let i = 1; i <= totalQuestoes; i++) {
