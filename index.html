@@ -58,38 +58,36 @@
         }
         /* Cronômetro */
         .relogio {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            width: 50px;
-            height: 30px;
-            background-color: #ffffff;
-            color: #000000;
             font-size: 14px;
             text-align: center;
-            line-height: 30px;
-            border-radius: 5px;
             border: 1px solid #cccccc;
+            border-radius: 5px;
+            padding: 5px 10px;
+            background-color: #ffffff;
+            color: #000000;
+            margin-right: 10px;
+            display: inline-block;
+            min-width: 60px;
         }
         /* Valor da Questão */
         .valor-questao {
-            position: absolute;
-            top: 10px;
-            right: 10px;
             background-color: #28a745;
             color: #ffffff;
             padding: 5px 10px;
             border-radius: 5px;
             font-weight: bold;
             font-size: 14px;
+            display: inline-block;
+            min-width: 60px;
+            text-align: center;
         }
         /* Questão */
         .questao {
-            position: relative;
             margin-bottom: 30px;
             background-color: rgba(255, 255, 255, 0.1);
             padding: 20px 20px 20px 20px;
             border-radius: 8px;
+            position: relative;
         }
         .questao p {
             margin-bottom: 15px;
@@ -191,12 +189,12 @@
             border-radius: 5px;
         }
         .feedback-questao.correct {
-            background-color: darkblue;
-            color: white;
+            background-color: #d1e7dd; /* Azul Claro */
+            color: #0f5132;
         }
         .feedback-questao.incorrect {
-            background-color: red;
-            color: white;
+            background-color: #f8d7da; /* Vermelho Claro */
+            color: #842029;
         }
         /* Responsividade */
         @media (max-width: 768px) {
@@ -209,14 +207,6 @@
             .cabecalho div, .serie-dropdown {
                 width: 100%;
             }
-            .relogio {
-                top: 10px;
-                left: 10px;
-            }
-            .valor-questao {
-                top: 10px;
-                right: 10px;
-            }
             .questao {
                 padding: 15px 15px 15px 15px;
             }
@@ -226,7 +216,7 @@
         }
         /* Estilos para seção de Aula, Tema e Habilidade */
         .detalhes-questao {
-            background-color: #ADD8E6; /* Azul Claro */
+            background-color: #006400; /* Verde Escuro */
             padding: 10px;
             border-radius: 5px;
             margin-bottom: 15px;
@@ -396,7 +386,7 @@
         <!-- Bloco de Script Colocado Dentro do Body -->
         <script>
             const questoes = [
-                // Questões 1 a 8: 'aberta'
+                // Questões 1 a 10: 'aberta'
                 {
                     tipo: 'aberta',
                     numeroAula: 'Aula 05 - Fontes renováveis de energia',
@@ -453,43 +443,31 @@
                     habilidade: 'Reconhecer diferentes tipos de reprodução assexuada em animais.',
                     texto: `Em uma aula de biologia, a professora explicou que as planárias conseguem se regenerar quando cortadas. Alguns alunos ficaram curiosos sobre como isso é possível e se há vantagens nesse processo para as planárias. Explique o processo de regeneração nas planárias e quais são as vantagens dessa forma de reprodução em certos ambientes.`
                 },
-                // Questões 9 e 10: 'multipla-escolha'
                 {
-                    tipo: 'multipla-escolha',
-                    numeroAula: 'Aula 05 - Fontes renováveis de energia',
-                    tema: 'Fontes Renováveis de Energia',
-                    habilidade: 'Identificar as diferentes fontes renováveis de energia e compreender sua importância para o desenvolvimento sustentável.',
-                    texto: `Embalagens inteligentes como solução para conservação eficiente:
-As embalagens inteligentes são uma inovação que monitora a frescura dos alimentos, indicando a qualidade e a validade do produto.
-Questão: Quais benefícios essas embalagens proporcionam à indústria e aos consumidores?`,
-                    opcoes: [
-                        { letra: 'a', texto: 'Redução dos custos de produção e eliminação da necessidade de refrigeração' },
-                        { letra: 'b', texto: 'Melhoria na segurança alimentar e redução do desperdício de alimentos' },
-                        { letra: 'c', texto: 'Aumento da vida útil dos alimentos, mas com maior impacto ambiental' },
-                        { letra: 'd', texto: 'Redução do consumo de aditivos alimentares, embora com alto custo para o consumidor' }
-                    ],
-                    respostaCorreta: 'b'
+                    tipo: 'aberta',
+                    numeroAula: 'Aula 10 - Impacto ambiental das atividades humanas',
+                    tema: 'Impacto Ambiental',
+                    habilidade: 'Analisar os impactos das atividades humanas sobre o meio ambiente e discutir estratégias de mitigação.',
+                    texto: `A expansão urbana descontrolada tem levado à degradação de ecossistemas locais. Descreva os principais impactos ambientais causados pela urbanização excessiva e proponha medidas que podem ser adotadas para minimizar esses efeitos, garantindo o desenvolvimento sustentável da região.`
                 },
                 {
-                    tipo: 'multipla-escolha',
-                    numeroAula: 'Aula 08 - Métodos contraceptivos hormonais',
-                    tema: 'Métodos Contraceptivos Hormonais',
-                    habilidade: 'Identificar e comparar os métodos contraceptivos hormonais, considerando sua eficácia e impacto na prevenção de IST e gravidez.',
-                    texto: `Química dos alimentos e alimentos fortificados:
-A química dos alimentos permite a criação de alimentos enriquecidos para combater deficiências nutricionais em populações vulneráveis.
-Questão: Qual é um exemplo prático de alimentos fortificados disponíveis em 2024?`,
-                    opcoes: [
-                        { letra: 'a', texto: 'Água mineral com corantes artificiais' },
-                        { letra: 'b', texto: 'Pães enriquecidos com ferro e ácido fólico' },
-                        { letra: 'c', texto: 'Lanches ultraprocessados com aumento de gorduras saturadas' },
-                        { letra: 'd', texto: 'Alimentos orgânicos sem adição de micronutrientes' }
-                    ],
-                    respostaCorreta: 'b'
+                    tipo: 'aberta',
+                    numeroAula: 'Aula 15 - Ciclo da água e conservação',
+                    tema: 'Ciclo da Água',
+                    habilidade: 'Entender o ciclo da água e a importância da conservação dos recursos hídricos.',
+                    texto: `A escassez de água tem se tornado um problema crescente em diversas regiões. Explique o ciclo da água e discuta práticas sustentáveis que podem ser implementadas em nível individual e comunitário para conservar os recursos hídricos e garantir o abastecimento para as futuras gerações.`
+                },
+                {
+                    tipo: 'aberta',
+                    numeroAula: 'Aula 09 - Biodiversidade e conservação',
+                    tema: 'Biodiversidade',
+                    habilidade: 'Reconhecer a importância da biodiversidade e discutir estratégias de conservação de espécies.',
+                    texto: `A perda de biodiversidade afeta diretamente os ecossistemas e a vida humana. Analise as principais causas da diminuição da biodiversidade global e proponha soluções que podem ser implementadas por governos e sociedade civil para preservar as espécies ameaçadas e manter o equilíbrio dos ecossistemas.`
                 }
             ];
 
             // URL do seu Web App do Google Apps Script
-            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwdnbnormMeEclGZ51U3Ts0pAzVbwW23YT6iLd7PokYXHWqVsp_Rzfab5h6RR7YpDly/exec'; // Substitua 'SEU_SCRIPT_ID' pela URL correta
+            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzOwLd2ecaAaXhA2dd4MogCOY6WY64V2fZt4kgItham_pa0y5YMrr5PJsav8qVUPo5T/exec'; // Substitua 'SEU_SCRIPT_ID' pela URL correta
 
             // Objeto para armazenar os timers
             const timers = {};
@@ -538,17 +516,10 @@ Questão: Qual é um exemplo prático de alimentos fortificados disponíveis em 
 
                 const totalQuestoes = questoes.length; // Número total de questões
                 for (let i = 1; i <= totalQuestoes; i++) {
-                    if (questoes[i - 1].tipo === 'aberta') {
-                        const resposta = document.getElementById(`resposta-${i}`).value;
-                        respostas[`resposta-${i}`] = resposta;
-                        respostas[`tempo-${i}`] = timers[i] ? timers[i].segundos : 0;
-                        pararCronometro(i); // Parar o cronômetro após enviar
-                    } else if (questoes[i - 1].tipo === 'multipla-escolha') {
-                        const respostaSelecionada = document.querySelector(`input[name="resposta-${i}"]:checked`);
-                        respostas[`resposta-${i}`] = respostaSelecionada ? respostaSelecionada.value : '';
-                        respostas[`tempo-${i}`] = timers[i] ? timers[i].segundos : 0;
-                        pararCronometro(i); // Parar o cronômetro após enviar
-                    }
+                    const resposta = document.getElementById(`resposta-${i}`).value;
+                    respostas[`resposta-${i}`] = resposta;
+                    respostas[`tempo-${i}`] = timers[i] ? timers[i].segundos : 0;
+                    pararCronometro(i); // Parar o cronômetro após enviar
                 }
 
                 try {
@@ -569,12 +540,7 @@ Questão: Qual é um exemplo prático de alimentos fortificados disponíveis em 
                         document.getElementById('serie').value = "";
                         document.getElementById('data').value = "";
                         for (let i = 1; i <= totalQuestoes; i++) {
-                            if (questoes[i - 1].tipo === 'aberta') {
-                                document.getElementById(`resposta-${i}`).value = "";
-                            } else if (questoes[i - 1].tipo === 'multipla-escolha') {
-                                const radios = document.getElementsByName(`resposta-${i}`);
-                                radios.forEach(radio => radio.checked = false);
-                            }
+                            document.getElementById(`resposta-${i}`).value = "";
                             document.getElementById(`relogio-${i}`).innerText = "00:00";
                         }
 
