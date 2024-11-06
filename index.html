@@ -434,11 +434,18 @@
                     tema: 'Ciclo da Água',
                     habilidade: 'Entender o ciclo da água e a importância da conservação dos recursos hídricos.',
                     texto: `A escassez de água tem se tornado um problema crescente em diversas regiões. Explique o ciclo da água e discuta práticas sustentáveis que podem ser implementadas em nível individual e comunitário para conservar os recursos hídricos e garantir o abastecimento para as futuras gerações.`
+                },
+                {
+                    tipo: 'aberta',
+                    numeroAula: 'Aula 09 - Biodiversidade e conservação',
+                    tema: 'Biodiversidade',
+                    habilidade: 'Reconhecer a importância da biodiversidade e discutir estratégias de conservação de espécies.',
+                    texto: `A perda de biodiversidade afeta diretamente os ecossistemas e a vida humana. Analise as principais causas da diminuição da biodiversidade global e proponha soluções que podem ser implementadas por governos e sociedade civil para preservar as espécies ameaçadas e manter o equilíbrio dos ecossistemas.`
                 }
             ];
 
             // URL do seu Web App do Google Apps Script
-            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxV9ZJvi5axCAIURmJ7A826W7lqQF3TtoD_T7CpRQnvPImzl_XZFin3GjT5ehf8ozRV/exec'; // Substitua 'SEU_SCRIPT_ID' pela URL correta
+            const WEB_APP_URL = 'https://script.google.com/macros/s/SEU_SCRIPT_ID/exec'; // Substitua 'SEU_SCRIPT_ID' pela URL correta
 
             // Objeto para armazenar os timers
             const timers = {};
@@ -494,7 +501,7 @@
                 }
 
                 try {
-                    const response = await fetch(https://script.google.com/macros/s/AKfycby3XMqsoYDueVwFr6fC3L5IC5T66Dmd6jYH9e3v7X2q4lVrEL_0HyqJNCVOT2-8yLkM/exec, { // URL do seu Web App
+                    const response = await fetch(WEB_APP_URL, { // URL do seu Web App
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/x-www-form-urlencoded',
@@ -520,9 +527,8 @@
                         const total = result.total;
                         const feedback = result.feedback;
 
-                        // Construir feedback detalhado com mensagem de sucesso
-                        let feedbackHTML = `<p><strong>Atividade enviada com sucesso!</strong></p>`;
-                        feedbackHTML += `<p><strong>Pontuação Total:</strong> ${pontuacao} / ${total}</p><hr>`;
+                        // Construir feedback detalhado
+                        let feedbackHTML = `<p><strong>Pontuação Total:</strong> ${pontuacao} / ${total}</p><hr>`;
                         feedbackHTML += `<h4>Feedback Detalhado:</h4>`;
 
                         for (let i = 1; i <= totalQuestoes; i++) {
