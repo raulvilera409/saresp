@@ -85,7 +85,7 @@
         .questao {
             margin-bottom: 30px;
             background-color: rgba(255, 255, 255, 0.1);
-            padding: 20px 20px 20px 20px;
+            padding: 20px;
             border-radius: 8px;
             position: relative;
         }
@@ -143,29 +143,6 @@
         button:hover {
             background-color: #218838;
         }
-        /* Estilos para questões de múltipla escolha */
-        .opcoes {
-            margin-top: 10px;
-        }
-        .opcoes label {
-            display: block;
-            margin-bottom: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            color: white;
-        }
-        /* Alterar a cor da alternativa selecionada para azul escura */
-        .opcoes input[type="radio"]:checked + span {
-            color: white;
-            background-color: darkblue;
-            padding: 2px 5px;
-            border-radius: 3px;
-        }
-        /* Adicionar estilo para os spans dentro das labels */
-        .opcoes label span {
-            color: white;
-            transition: color 0.3s, background-color 0.3s;
-        }
         /* Estilo para as linhas entre questões */
         .linha-questao {
             border-top: 2px solid #ffffff;
@@ -208,7 +185,7 @@
                 width: 100%;
             }
             .questao {
-                padding: 15px 15px 15px 15px;
+                padding: 15px;
             }
             .linha-questao {
                 margin: 20px 0;
@@ -242,6 +219,7 @@
                     <p>NOME: 
                         <select id="nome" name="nome" required>
                             <option value="" disabled selected>Selecione seu nome</option>
+                            <!-- Lista Completa dos Alunos -->
                             <option>ÁGATHA NIKOLLE DA SILVA RAMOS</option> 
                             <option>ALEXANDRE DE FREITAS TAVARES</option> 
                             <option>AMANDA BEATRIZ LEAL MOURAD</option> 
@@ -448,7 +426,7 @@
                     numeroAula: 'Aula 10 - Impacto ambiental das atividades humanas',
                     tema: 'Impacto Ambiental',
                     habilidade: 'Analisar os impactos das atividades humanas sobre o meio ambiente e discutir estratégias de mitigação.',
-                    texto: `A expansão urbana descontrolada tem levado à degradação de ecossistemas locais. Descreva os principais impactos ambientais causados pela urbanização excessiva e proponha medidas que podem ser adotadas para minimizar esses efeitos, garantindo o desenvolvimento sustentável da região.`
+                    texto: `A expansão urbana descontrolada tem levado à degradação de ecossistemas locais. Descreva os principais impactos ambientais causados pela urbanização excessiva e proponha medidas que podem ser adotadas para minimizar esses efeitos, garantindo um desenvolvimento equilibrado e sustentável da região.`
                 },
                 {
                     tipo: 'aberta',
@@ -467,7 +445,7 @@
             ];
 
             // URL do seu Web App do Google Apps Script
-            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzd2ja5zjuAkpIEneYCChperpqIwXjG4TVBg5ibAZZKEPFDzipX5MmEBt43YFZhpD-f/exec'; // Substitua 'SEU_SCRIPT_ID' pela URL correta
+            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxk3SCEDW-0O9L6z-zIm1ukYW4wUSYmexvobLZUGDFxaf8kUVusxY5fp1jbfw8FZQXo/exec'; // Substitua 'SEU_SCRIPT_ID' pela URL correta
 
             // Objeto para armazenar os timers
             const timers = {};
@@ -643,31 +621,6 @@
                         resposta.addEventListener('focus', () => iniciarCronometro(questaoId));
                         resposta.addEventListener('blur', () => pararCronometro(questaoId));
                         questaoDiv.appendChild(resposta);
-                    } else if (questao.tipo === 'multipla-escolha') {
-                        const opcoesDiv = document.createElement('div');
-                        opcoesDiv.classList.add('opcoes');
-
-                        questao.opcoes.forEach(opcao => {
-                            const label = document.createElement('label');
-                            const input = document.createElement('input');
-                            input.type = 'radio';
-                            input.name = `resposta-${questaoId}`;
-                            input.value = opcao.letra;
-                            input.required = true;
-
-                            // Criar um span para o texto da opção
-                            const span = document.createElement('span');
-                            span.textContent = ` ${opcao.letra}) ${opcao.texto}`;
-
-                            label.appendChild(input);
-                            label.appendChild(span);
-                            opcoesDiv.appendChild(label);
-                        });
-
-                        // Iniciar o cronômetro ao selecionar uma opção
-                        opcoesDiv.addEventListener('click', () => iniciarCronometro(questaoId));
-
-                        questaoDiv.appendChild(opcoesDiv);
                     }
 
                     // Adicionar linha separadora entre questões, exceto após a última
